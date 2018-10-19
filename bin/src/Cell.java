@@ -1,8 +1,12 @@
 public class Cell {
     private Boolean state;
+    private int xCoord;
+    private int yCoord;
 
-    public Cell(Boolean state) {
+    public Cell(Boolean state, int xCoord, int yCoord) {
         this.state = state;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
     }
 
     public Boolean getState() {

@@ -43,14 +43,32 @@ public class Board {
 
     public Board() {
         board = new Cell[45][30];
+        // Tracker variables for inputting coordinates to cells
+        int xTrack = 0;
+        int yTrack = 0;
 
         // Fill board
         for (int y = 0 ; y < 30 ; y ++) {
+            yTrack += 20;
 
             for (int x = 0 ; x < 45 ; x ++) {
-                board[x][y] = new Cell(false);
+                board[x][y] = new Cell(false, xTrack, yTrack);
+                xTrack += 20;
             }
         }
+
+        board[10][10].setState(true);
+        board[12][10].setState(true);
+        board[12][11].setState(true);
+        board[14][12].setState(true);
+        board[14][13].setState(true);
+        board[14][14].setState(true);
+        board[16][15].setState(true);
+        board[16][14].setState(true);
+        board[17][14].setState(true);
+        board[16][13].setState(true);
+
+
     }
 
     /**
