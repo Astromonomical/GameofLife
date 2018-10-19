@@ -18,7 +18,16 @@ import javafx.stage.*;
 public class GameScreen extends Application {
 
     public static void main(String[] args) {
-        launch(args);
+        Boolean end = false;
+
+        // Game Loop
+        while (!end) {
+
+
+
+            // Update GUI
+            launch(args);
+        }
     }
 
     @Override
