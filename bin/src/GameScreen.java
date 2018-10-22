@@ -18,22 +18,6 @@ import javafx.stage.*;
 
 public class GameScreen extends Application {
 
-    /**
-     * Draw a square at the given coordinates
-     * @param x X Coordinate
-     * @param y Y Coordinate
-     * @return A Rectangle object shaped like a square
-     */
-    private static Rectangle drawSquare(int x, int y) {
-        Rectangle rectangle = new Rectangle();
-        rectangle.setHeight(20);
-        rectangle.setWidth(20);
-        rectangle.setLayoutX(x);
-        rectangle.setLayoutY(y);
-
-        return rectangle;
-    }
-
     public static void main(String[] args) {
         GameScreen.launch(args);
     }
@@ -70,22 +54,15 @@ public class GameScreen extends Application {
             public void handle(long currentNanoTime) {
                 // Processing code (Carried out 60 times a second)
                 System.out.println("Hello World");
-                gameBoard.update();
                 try {
                     Thread.sleep(1000);
                 } catch(InterruptedException e) {
 
                 }
+
                 // Draw squares
-                for (int y = 0 ; y < 30 ; y++) {
-
-                    for (int x = 0 ; x < 45 ; x++) {
-                        if (gameBoard.getBoard()[x][y].getState()) {
-                            grid.getChildren().add(drawSquare(x * 20, y * 20));
-                        }
-
-                    }
-                }
+                gameBoard.update();
+                gameBoard.fillSquares(grid);
             }
         }.start();
     }

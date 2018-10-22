@@ -1,10 +1,17 @@
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 /**
  * Sets up the board array to use
  */
 public class Board {
     private Cell[][] board;
-    private final int COLUMNS = 45;
-    private final int ROWS = 30;
+
+    // Array dimensions
+    private final int COLUMNS = 180;
+    private final int ROWS = 120;
+    private final int SIZE = 5;
 
     private Boolean inBounds(int x, int y) {
         if ( (x < 0) || (y < 0)) {
@@ -42,18 +49,19 @@ public class Board {
     }
 
     public Board() {
-        board = new Cell[45][30];
+        board = new Cell[COLUMNS][ROWS];
         // Tracker variables for inputting coordinates to cells
         int xTrack = 0;
         int yTrack = 0;
 
         // Fill board
-        for (int y = 0 ; y < 30 ; y ++) {
-            yTrack += 20;
+        for (int y = 0 ; y < ROWS ; y ++) {
+            yTrack += SIZE;
+            xTrack = 0;
 
-            for (int x = 0 ; x < 45 ; x ++) {
+            for (int x = 0 ; x < COLUMNS ; x ++) {
                 board[x][y] = new Cell(false, xTrack, yTrack);
-                xTrack += 20;
+                xTrack += SIZE;
             }
         }
 
@@ -78,9 +86,9 @@ public class Board {
         int neighbours = 0;
 
         // Select Cell
-        for (int y = 0 ; y < 30 ; y++) {
+        for (int y = 0 ; y < ROWS ; y++) {
 
-            for (int x = 0 ; x < 45 ; x++) {
+            for (int x = 0 ; x < COLUMNS ; x++) {
                 // Get neighbour count
                 neighbours = checkAround(x, y);
 
@@ -103,10 +111,54 @@ public class Board {
     }
 
     /**
+     * Draw a square at the given coordinates
+     * @param x X Coordinate
+     * @param y Y Coordinate
+     * @return A Rectangle object shaped like a square
+     */
+    private static Rectangle drawSquare(int x, int y, Color colour) {
+        Rectangle rectangle = new Rectangle();
+        rectangle.setHeight(5);
+        rectangle.setWidth(5);
+        rectangle.setLayoutX(x);
+        rectangle.setLayoutY(y);
+        rectangle.setFill(colour);
+
+        return rectangle;
+    }
+
+    public void fillSquares(Group grid) {
+
+        for (int y = 0 ; y < ROWS ; y++) {
+
+            for (int x = 0 ; x < COLUMNS ; x++) {
+                if (board[x][y].getState()) {
+                    grid.getChildren().add(drawSquare(x * SIZE, y * SIZE, Color.BLACK));
+                } else {
+                    grid.getChildren().add(drawSquare(x * SIZE, y * SIZE, Color.LIGHTBLUE));
+                }
+
+            }
+        }
+    }
+
+    /**
      * Returns the board to the user for now (Temp Method)
-     * @return
+     * @return Board
      */
     public Cell[][] getBoard() {
         return board;
     }
+
+    /**
+     * Returns the no. of columns in the board
+     * @return Columns
+     */
+    public int getColumns() { return COLUMNS; }
+
+    /**
+     * Returns the no. of rows in the board
+     * @return Rows
+     */
+    public int getRows() { return ROWS; }
 }
